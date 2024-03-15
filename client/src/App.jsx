@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 
 const CreateNote = ({ create }) => {
   const [txt, setTxt] = useState('');
+
   const submit = (ev) => {
     ev.preventDefault();
     create({ txt });
   };
   return (
-    <form onSubmit={{ submit }}>
+    <form onSubmit={submit}>
       <input value={txt} onChange={ev => setTxt(ev.target.value)} />
       <button>Create</button>
     </form>
@@ -27,6 +28,7 @@ function App() {
     fetchNotes();
 
   }, []);
+
   const toggle = async (note) => {
     const response = await fetch(`/api/notes/${note.id}`, {
       method: 'PUT',
@@ -50,7 +52,6 @@ function App() {
     }
   };
 
-
   const create = async (note) => {
     const response = await fetch('/api/notes', {
       method: 'POST',
@@ -69,8 +70,6 @@ function App() {
 
   };
 
-
-
   return (
     <>
       <h1>Acme Notes {notes.length}</h1>
@@ -84,10 +83,12 @@ function App() {
                 <button onClick={() => toggle(note)}>toggle</button>
                 <button onClick={() => destroy(note)}>delete</button>
               </li>
+
             );
           })
+
         }
-      </ul >
+      </ul>
     </>
   );
 }
