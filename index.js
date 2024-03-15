@@ -7,6 +7,10 @@ app.get('/', (req, res) =>
 );
 app.use('/assets', express.static(path.join(__dirname, '/client/dist/assets')));
 
+app.get('/api/notes', (req, res, next) => {
+  res.send([{ txt: 'hi' }]);
+});
+
 const init = () => {
   console.log('seed some data');
   const port = process.env.PORT || 3001;
